@@ -1,0 +1,1203 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>#ВТренде — все нейросети для соцсетей в одном приложении, без VPN и кучи подписок</title>
+<meta name="description" content="Десятки нейросетей для соцсетей — в одном приложении. Видео и фото с вашим лицом, карусели, мультики, тексты — готово за минуты, без съёмок и монтажа. Оплата картой РФ, без VPN. Старт бесплатно — 30 монет в подарок." />
+<link rel="icon" type="image/png" href="favicon_light.png" />
+<link rel="apple-touch-icon" href="favicon_light.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --bg:#F7F7FA;
+  --surface:#FFFFFF;
+  --surface2:#F2F2F7;
+  --border:rgba(20,20,25,0.08);
+  --border2:rgba(20,20,25,0.13);
+  --text:#1C1C1E;
+  --text2:#6E6E73;
+  --text3:#AEAEB2;
+  --accent:#7C3AED;
+  --accent-ink:#5B21B6;
+  --accent-soft:rgba(124,58,237,0.08);
+  --accent-soft2:rgba(124,58,237,0.14);
+  --lime:#C8FF3E;
+  --lime-ink:#0A0A0A;
+  --lime-soft:rgba(200,255,62,0.22);
+  --green:#34C759;
+  --blue:#007AFF;
+  --red:#FF3B30;
+  --amber:#B8850A;
+  --amber-soft:rgba(255,176,32,0.14);
+  --r-sm:10px;--r-md:16px;--r-lg:22px;--r-xl:28px;--r-2xl:36px;--r-pill:999px;
+  --shadow-sm:0 1px 2px rgba(16,16,20,.05);
+  --shadow-md:0 10px 28px -8px rgba(16,16,20,.12), 0 2px 6px rgba(16,16,20,.05);
+  --shadow-lg:0 30px 70px -16px rgba(16,16,20,.20), 0 6px 16px rgba(16,16,20,.06);
+  --ease:cubic-bezier(.22,.68,0,1.05);
+}
+
+html{scroll-behavior:smooth}
+body{
+  font-family:'Inter',system-ui,sans-serif;
+  background:var(--bg); color:var(--text);
+  font-size:16px; line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden; position:relative;
+}
+
+/* ── BG WASH ── */
+body::before{
+  content:''; position:fixed; inset:0; z-index:0; pointer-events:none;
+  background:
+    radial-gradient(ellipse 55% 38% at 14% 6%, rgba(124,58,237,0.10) 0%, transparent 70%),
+    radial-gradient(ellipse 46% 36% at 92% 18%, rgba(200,255,62,0.16) 0%, transparent 70%),
+    radial-gradient(ellipse 50% 40% at 80% 92%, rgba(124,58,237,0.07) 0%, transparent 70%);
+}
+
+h1,h2,h3,h4{font-family:'Inter',sans-serif; font-weight:800; line-height:1.08; letter-spacing:-.035em; color:var(--text)}
+h1{font-size:clamp(2.3rem,3.2vw,3.65rem)}
+h2{font-size:clamp(2rem,3.4vw,3.3rem)}
+h3{font-size:1.05rem; font-weight:700; letter-spacing:-.01em}
+
+.container{max-width:1160px; margin:0 auto; padding:0 28px; position:relative; z-index:1}
+.section{padding:112px 0}
+.section-top{border-top:1px solid var(--border)}
+.center{text-align:center; margin-left:auto; margin-right:auto}
+.fit{width:fit-content}
+
+/* ── CHIP ── */
+.chip{
+  display:inline-flex; align-items:center; gap:7px;
+  background:var(--accent-soft); border:1px solid rgba(124,58,237,0.22);
+  border-radius:var(--r-pill); padding:6px 15px;
+  font-size:12.5px; font-weight:600; color:var(--accent-ink);
+  letter-spacing:.02em; margin-bottom:20px; position:relative; z-index:1;
+}
+.chip .dot{width:6px;height:6px;background:var(--accent);border-radius:50%;flex-shrink:0}
+
+/* ── BUTTONS ── */
+.btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:8px;
+  padding:13px 25px; border-radius:var(--r-pill);
+  font-family:'Inter',sans-serif; font-size:15px; font-weight:600;
+  cursor:pointer; border:none; text-decoration:none; white-space:nowrap;
+  transition:transform .22s var(--ease), box-shadow .22s var(--ease), background .18s, border-color .18s;
+  position:relative;
+}
+.btn-primary{background:var(--accent); color:#fff}
+.btn-primary:hover{background:var(--accent-ink); transform:translateY(-2px); box-shadow:0 14px 30px -10px rgba(124,58,237,.55)}
+.btn-lime{background:var(--lime); color:var(--lime-ink)}
+.btn-lime:hover{transform:translateY(-2px); box-shadow:0 14px 30px -10px rgba(200,255,62,.55)}
+.btn-ghost{background:var(--surface); color:var(--text); border:1px solid var(--border2); box-shadow:var(--shadow-sm)}
+.btn-ghost:hover{border-color:rgba(20,20,25,0.22); transform:translateY(-2px); box-shadow:var(--shadow-md)}
+.btn-lg{padding:16px 30px; font-size:16px}
+.btn-sm{padding:9px 18px; font-size:13.5px}
+
+/* ── STRIP ── */
+.strip{
+  background:var(--lime-ink); color:#EDEDED;
+  padding:9px 24px; text-align:center;
+  font-size:13px; position:relative; z-index:101;
+}
+.strip strong{color:var(--lime); font-weight:700}
+.strip .sep{opacity:.4; margin:0 8px}
+
+/* ── NAV ── */
+nav{position:sticky; top:0; z-index:100; border-bottom:1px solid var(--border); background:rgba(247,247,250,.78); backdrop-filter:blur(18px) saturate(1.4)}
+.nav-inner{display:flex; align-items:center; justify-content:space-between; height:66px; max-width:1160px; margin:0 auto; padding:0 28px}
+.logo-img{height:24px; width:auto; display:block}
+.nav-links{display:flex; align-items:center; gap:30px}
+.nav-links a{font-size:14.5px; color:var(--text2); text-decoration:none; font-weight:500; transition:color .15s}
+.nav-links a:hover{color:var(--text)}
+
+/* ── HERO ── */
+.hero{padding:80px 0 60px; position:relative}
+.hero-badge{
+  display:inline-flex; align-items:center; gap:8px;
+  background:var(--surface); border:1px solid var(--border2); box-shadow:var(--shadow-sm);
+  border-radius:var(--r-pill); padding:6px 15px 6px 12px; font-size:13.5px; color:var(--text2); margin-bottom:26px;
+}
+.hero-badge .dot{width:7px;height:7px;background:var(--green);border-radius:50%;flex-shrink:0;animation:blink 2s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1;box-shadow:0 0 0 3px rgba(52,199,89,.18)}50%{opacity:.55;box-shadow:0 0 0 0 rgba(52,199,89,0)}}
+.hero-grid{display:grid; grid-template-columns:1.05fr 1fr; gap:56px; align-items:center}
+.hero-copy h1{margin-bottom:22px}
+.hero-copy h1 em{color:var(--accent); font-style:normal; position:relative}
+.hero-copy p{font-size:17.5px; color:var(--text2); line-height:1.7; margin-bottom:34px; max-width:480px}
+.hero-btns{display:flex; gap:12px; flex-wrap:wrap; margin-bottom:18px}
+.hero-note{font-size:13.5px; color:var(--text3)}
+
+.hero-vis{position:relative}
+.app-window{
+  background:var(--surface); border:1px solid var(--border); border-radius:var(--r-xl); overflow:hidden;
+  box-shadow:var(--shadow-lg);
+}
+.app-topbar{padding:16px 18px; background:var(--surface2); border-bottom:1px solid var(--border); display:flex; align-items:center; gap:10px}
+.app-mark{width:22px;height:22px;border-radius:7px;background:linear-gradient(135deg,var(--accent),#9F5CF5);display:flex;align-items:center;justify-content:center;color:#fff;font-size:11px;font-weight:800;flex-shrink:0}
+.app-bar-title{font-size:12.5px; color:var(--text2); font-weight:600}
+.app-body{padding:16px 16px 52px; display:flex; flex-direction:column; gap:8px}
+.trend-item{display:flex; align-items:center; gap:10px; padding:12px 14px; background:var(--surface2); border:1px solid var(--border); border-radius:var(--r-md); transition:border-color .2s, transform .2s}
+.trend-item:hover{border-color:rgba(124,58,237,.3); transform:translateX(2px)}
+.ti-rank{font-size:11px; font-weight:800; color:var(--text3); width:16px; flex-shrink:0}
+.ti-text{font-size:12.5px; flex:1; color:var(--text); line-height:1.3; font-weight:500}
+.ti-bar{width:48px; height:4px; background:rgba(20,20,25,.08); border-radius:2px; overflow:hidden; flex-shrink:0}
+.ti-fill{height:100%; border-radius:2px; background:linear-gradient(90deg,var(--accent),#B685F7)}
+.ti-views{font-size:11px; font-weight:700; color:var(--text); flex-shrink:0}
+.ti-badge{font-size:10px; font-weight:700; padding:3px 8px; border-radius:var(--r-pill); background:var(--accent-soft); color:var(--accent-ink); flex-shrink:0; white-space:nowrap}
+.float-card{position:absolute; background:var(--surface); border:1px solid var(--border); border-radius:var(--r-lg); padding:13px 17px; box-shadow:var(--shadow-lg); z-index:3}
+.fc-top{top:-22px; right:-18px; text-align:center; min-width:150px; animation:floaty 5s ease-in-out infinite}
+.fc-top .fc-big{font-size:20px; font-weight:800; color:var(--accent); letter-spacing:-.02em}
+.fc-top .fc-sub{font-size:11px; color:var(--text2); margin-top:1px; font-weight:500}
+.fc-bot{bottom:-20px; left:-20px; display:flex; align-items:center; gap:10px; animation:floaty 5.5s ease-in-out infinite 1s}
+.fc-bot .ico{font-size:18px}
+.fc-bot .fc-title{font-size:12.5px; font-weight:700}
+.fc-bot .fc-sub{font-size:11px; color:var(--text2)}
+@keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+
+/* ── TICKER ── */
+.ticker-wrap{border-top:1px solid var(--border); border-bottom:1px solid var(--border); padding:22px 0; overflow:hidden; background:var(--surface)}
+.ticker-track{display:flex; gap:0; width:max-content; animation:ticker 32s linear infinite}
+.ticker-wrap:hover .ticker-track{animation-play-state:paused}
+.ticker-item{display:flex; align-items:center; gap:12px; padding:0 30px; font-size:16px; font-weight:600; color:var(--text); white-space:nowrap}
+.ticker-item .tdot{width:6px;height:6px;border-radius:50%;background:var(--lime); box-shadow:0 0 0 5px var(--accent-soft); flex-shrink:0}
+@keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ── PAIN ── */
+.pain-grid{display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:18px}
+.pain-card{display:flex; align-items:flex-start; gap:13px; padding:22px; background:var(--surface); border:1px solid var(--border); border-radius:var(--r-lg); transition:all .22s var(--ease)}
+.pain-card:hover{border-color:rgba(124,58,237,.28); transform:translateY(-2px); box-shadow:var(--shadow-md)}
+.pain-ico{font-size:21px; flex-shrink:0}
+.pain-card p{font-size:15px; color:var(--text2); line-height:1.6}
+.pain-answer{padding:24px 28px; background:var(--accent); color:#fff; border-radius:var(--r-lg); font-size:16.5px; font-weight:500; line-height:1.65}
+.pain-answer strong{font-weight:800}
+
+/* ── COMPARE ── */
+.compare-grid{display:grid; grid-template-columns:1fr 1fr; gap:14px}
+.compare-col{border-radius:var(--r-xl); overflow:hidden; border:1px solid var(--border); background:var(--surface)}
+.compare-col-head{padding:18px 22px; font-size:14px; font-weight:800; letter-spacing:-.01em}
+.compare-col.before .compare-col-head{background:var(--surface2); color:var(--text2); border-bottom:1px solid var(--border)}
+.compare-col.after .compare-col-head{background:var(--lime); color:var(--lime-ink); border-bottom:1px solid rgba(0,0,0,.06)}
+.compare-col.after{border-color:rgba(200,255,62,.5)}
+.compare-row-item{display:flex; align-items:flex-start; gap:11px; padding:16px 22px; font-size:14.5px; border-bottom:1px solid var(--border); line-height:1.5}
+.compare-row-item:last-child{border-bottom:none}
+.compare-col.before .compare-row-item{color:var(--text2)}
+.compare-col.after .compare-row-item{color:var(--text); font-weight:500}
+.c-ico{font-size:13px; flex-shrink:0; margin-top:1px}
+.c-ico-x{opacity:.35}
+.c-ico-ok{color:#1E9B44}
+
+/* ── FEATURE-SPLIT (Трендвотчер / Как работает) ── */
+.split{display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center}
+.split-copy p.lead{font-size:17px; color:var(--text2); line-height:1.75; margin:16px 0 32px; max-width:460px}
+.bullet-list{display:flex; flex-direction:column; gap:4px}
+.bullet-item{display:flex; gap:15px; align-items:flex-start; padding:16px 4px; border-radius:var(--r-md); cursor:pointer; transition:background .2s}
+.bullet-item.is-active{background:var(--surface)}
+.bullet-ico{width:38px; height:38px; border-radius:var(--r-sm); background:var(--accent-soft); display:flex; align-items:center; justify-content:center; font-size:17px; flex-shrink:0; transition:background .2s, transform .2s}
+.bullet-item.is-active .bullet-ico{background:var(--accent); transform:scale(1.06)}
+.bullet-item.is-active .bullet-ico span{filter:none}
+.bullet-txt h3{font-size:15px; margin-bottom:4px}
+.bullet-txt p{font-size:14px; color:var(--text2); line-height:1.6}
+.callout{margin-top:28px; padding:20px 24px; background:var(--surface2); border:1px solid var(--border); border-radius:var(--r-lg); font-size:15.5px; color:var(--text); font-weight:500; line-height:1.6}
+
+/* ── STEP LIST (how it works) ── */
+.step-list{display:flex; flex-direction:column; gap:2px}
+.step-row{display:flex; gap:16px; align-items:flex-start; padding:18px 16px; border-radius:var(--r-lg); cursor:pointer; transition:background .25s var(--ease)}
+.step-row.is-active{background:var(--surface); box-shadow:var(--shadow-sm)}
+.step-num{width:34px;height:34px;border-radius:50%; background:var(--surface2); color:var(--text2); font-weight:800; font-size:14px; display:flex; align-items:center; justify-content:center; flex-shrink:0; transition:all .25s}
+.step-row.is-active .step-num{background:var(--accent); color:#fff}
+.step-row h3{font-size:15.5px; margin-bottom:4px}
+.step-row p{font-size:14px; color:var(--text2); line-height:1.6}
+.step-footnote{margin-top:24px; font-size:13.5px; color:var(--text3); line-height:1.65; max-width:460px}
+
+/* ── CASE PHONE ── */
+.case-frame{position:relative; display:flex; justify-content:center}
+.case-glow{position:absolute; inset:-40px; z-index:0; background:radial-gradient(ellipse 60% 55% at 50% 40%, rgba(124,58,237,.16), transparent 70%); filter:blur(6px); pointer-events:none}
+.case-phone{
+  position:relative; z-index:1; width:100%; max-width:336px; margin:0 auto;
+  aspect-ratio:1755/3120;
+}
+.phone-frame-img{position:absolute; inset:0; width:100%; height:100%; z-index:5; pointer-events:none; filter:drop-shadow(0 26px 54px rgba(16,16,20,.22))}
+.case-screen{position:absolute; left:11.3%; top:2.8%; width:77.4%; height:94.5%; background:var(--surface); border-radius:30px; overflow:hidden; z-index:1}
+.case-state{position:absolute; inset:0; padding:38px 16px 18px; opacity:0; transform:translateY(14px) scale(.985); transition:opacity .5s var(--ease), transform .55s var(--ease); pointer-events:none; display:flex; flex-direction:column}
+.case-state.active{opacity:1; transform:none; pointer-events:auto}
+.case-cursor{position:absolute; width:40px; height:40px; margin:-24px 0 0 -14px; opacity:0; transition:left .5s var(--ease), top .5s var(--ease), opacity .3s; z-index:6; pointer-events:none; display:flex; align-items:flex-end; justify-content:center; font-size:26px; filter:drop-shadow(0 3px 6px rgba(20,20,25,.25))}
+.case-cursor::before{content:'👆'}
+.case-cursor::after{content:''; position:absolute; left:50%; bottom:2px; width:14px; height:14px; margin-left:-7px; border-radius:50%; background:rgba(255,255,255,.9)}
+.case-cursor.tap::after{animation:tapPulse .55s var(--ease)}
+@keyframes tapPulse{0%{box-shadow:0 0 0 0 rgba(124,58,237,.35)}100%{box-shadow:0 0 0 16px rgba(124,58,237,0)}}
+.case-dots{display:flex; gap:6px; justify-content:center; margin-top:12px}
+.case-dot{width:6px; height:6px; border-radius:50%; background:var(--border2); transition:background .3s, width .3s; cursor:pointer}
+.case-dot:hover{background:rgba(124,58,237,.5)}
+.case-dot.active{background:var(--accent); width:18px; border-radius:3px}
+
+.cs-label{font-size:11px; font-weight:700; color:var(--text3); text-transform:uppercase; letter-spacing:.06em; margin-bottom:14px}
+.cs-title{font-size:18px; font-weight:800; letter-spacing:-.02em; margin-bottom:6px}
+.cs-sub{font-size:13px; color:var(--text2); line-height:1.5; margin-bottom:16px}
+.cs-row{display:flex; align-items:center; gap:10px; padding:11px 13px; background:var(--surface2); border-radius:var(--r-md); margin-bottom:8px; border:1px solid transparent; transition:border-color .2s}
+.cs-row[data-tap]{cursor:pointer}
+.cs-avatar{width:30px;height:30px;border-radius:9px; background:linear-gradient(135deg,var(--accent),#B685F7); flex-shrink:0}
+.cs-btn{margin-top:auto; align-self:flex-start; background:var(--accent); color:#fff; font-size:13px; font-weight:700; padding:11px 20px; border-radius:var(--r-pill)}
+.cs-btn.lime{background:var(--lime); color:var(--lime-ink)}
+.cs-center{flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; gap:14px}
+.cs-ring{width:64px; height:64px; border-radius:50%; background:conic-gradient(var(--accent) 0deg, rgba(124,58,237,.15) 0deg); position:relative; display:flex; align-items:center; justify-content:center; animation:ringspin 1.8s linear infinite}
+.cs-ring::before{content:''; position:absolute; inset:6px; background:var(--surface); border-radius:50%}
+.cs-ring .cs-mark{position:relative; z-index:1; width:32px; height:32px; border-radius:9px; background:linear-gradient(135deg,var(--accent),#9F5CF5); display:flex; align-items:center; justify-content:center; color:#fff; font-size:13px; font-weight:800}
+@keyframes ringspin{to{transform:rotate(360deg)}}
+.cs-progress{width:100%; max-width:200px; height:6px; background:var(--surface2); border-radius:3px; overflow:hidden}
+.cs-progress-fill{height:100%; width:0%; background:linear-gradient(90deg,var(--accent),#B685F7); border-radius:3px}
+.case-state.active .cs-progress-fill{animation:fillbar 2.1s var(--ease) forwards}
+@keyframes fillbar{from{width:2%}to{width:88%}}
+.cs-result-vid{width:100%; aspect-ratio:9/11; background:linear-gradient(160deg,var(--accent-soft2),var(--lime-soft)); border-radius:var(--r-lg); display:flex; align-items:center; justify-content:center; margin-bottom:14px; position:relative; overflow:hidden}
+.cs-play{width:44px;height:44px;border-radius:50%; background:rgba(255,255,255,.92); box-shadow:var(--shadow-md); display:flex; align-items:center; justify-content:center; font-size:15px; color:var(--accent)}
+.cs-badge-pub{display:inline-flex; align-items:center; gap:7px; background:var(--surface2); border-radius:var(--r-pill); padding:8px 14px; font-size:12.5px; font-weight:600; align-self:center}
+.cs-tag{position:absolute; top:10px; left:10px; background:rgba(255,255,255,.9); font-size:10px; font-weight:700; padding:4px 9px; border-radius:var(--r-pill); color:var(--text); z-index:2}
+.cs-video{position:absolute; inset:0; width:100%; height:100%; object-fit:cover}
+.cs-sound-btn{position:absolute; right:9px; bottom:9px; width:30px; height:30px; border-radius:50%; border:none; padding:0; display:flex; align-items:center; justify-content:center; background:rgba(10,10,16,.6); color:#fff; font-size:13px; line-height:1; cursor:pointer; transition:background .2s, transform .15s; z-index:3}
+.cs-sound-btn:hover{background:rgba(10,10,16,.8); transform:scale(1.06)}
+.cs-sound-btn:active{transform:scale(.92)}
+
+/* clip-motion equation (case 3, continuous) */
+.clip-demo{display:flex; align-items:center; justify-content:center; gap:18px}
+.clip-demo-item{flex:1; max-width:240px; aspect-ratio:3/4; min-width:0; border-radius:14px; overflow:hidden; position:relative; background:rgba(255,255,255,.1)}
+.clip-demo-item img{width:100%; height:100%; object-fit:cover; display:block}
+.clip-demo-op{flex-shrink:0; align-self:center; font-size:30px; font-weight:800; color:#fff}
+
+/* ── BENTO FEATURES ── */
+.bento{display:grid; grid-template-columns:repeat(4,1fr); gap:12px}
+.bento-card{background:var(--surface); border:1px solid var(--border); border-radius:var(--r-xl); padding:22px; transition:all .25s var(--ease); display:flex; flex-direction:column; overflow:hidden; position:relative}
+.bento-card:hover{border-color:rgba(124,58,237,.25); transform:translateY(-3px); box-shadow:var(--shadow-md)}
+.bento-card.wide{grid-column:span 2}
+.bento-card.big{grid-column:1/-1; background:linear-gradient(160deg,var(--accent),#6D28D9); color:#fff; border:none}
+.bento-card.big:hover{transform:translateY(-3px)}
+.bento-ico{width:40px;height:40px; background:var(--accent-soft); border-radius:var(--r-sm); display:flex; align-items:center; justify-content:center; font-size:18px; margin-bottom:16px; flex-shrink:0}
+.big .bento-ico{background:rgba(255,255,255,.15)}
+.bento-card h3{font-size:14.5px; margin-bottom:6px}
+.bento-card p{font-size:13px; color:var(--text2); line-height:1.55}
+.big h3{color:#fff}
+.big p{color:rgba(255,255,255,.78)}
+.big .clip-demo{position:relative; margin:16px 0 2px}
+.bento-card.has-soon h3{padding-right:60px}
+.bento-soon{position:absolute; top:22px; right:22px; font-size:10px; font-weight:800; color:var(--accent-ink); background:var(--accent-soft); border-radius:var(--r-pill); padding:3px 10px; letter-spacing:.02em}
+.bento-media{flex:none; margin-top:10px; position:relative; display:flex; align-items:center; justify-content:center; border-radius:14px; background:var(--surface2); overflow:hidden}
+.bento-media > img, .bento-media > video{width:100%; height:100%; object-fit:contain; display:block; border-radius:14px}
+.bento-media.crop-ok{aspect-ratio:3/4}
+.bento-media.crop-ok > img{object-fit:cover}
+.bento-swipe{overflow:hidden; position:relative; cursor:grab; touch-action:pan-y}
+.bento-swipe:active{cursor:grabbing}
+.bento-swipe-track{display:flex; gap:10px; height:100%; transition:transform .5s var(--ease)}
+.bento-swipe-slide{flex:0 0 80%; min-width:0; height:100%; border-radius:14px; overflow:hidden; background:var(--surface); display:flex; align-items:center; justify-content:center}
+.bento-swipe-slide img{width:100%; height:100%; object-fit:contain; display:block; border-radius:14px; -webkit-user-drag:none; user-select:none; pointer-events:none}
+
+/* ── SMM REPLACE ── */
+.smm-banner{background:linear-gradient(135deg,var(--lime-ink),#241f33); color:#fff; border-radius:var(--r-2xl); padding:56px 52px; position:relative; overflow:hidden}
+.smm-banner::before{content:''; position:absolute; inset:0; background:radial-gradient(ellipse 50% 60% at 85% 20%, rgba(200,255,62,.18), transparent 70%); pointer-events:none}
+.smm-banner h2{color:#fff; max-width:640px; margin-bottom:16px; position:relative}
+.smm-banner p{color:rgba(255,255,255,.72); font-size:17px; max-width:600px; line-height:1.75; margin-bottom:30px; position:relative}
+.smm-stats{display:flex; gap:12px; flex-wrap:wrap; position:relative; max-width:600px}
+.smm-stat{background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.14); border-radius:var(--r-pill); padding:9px 18px; font-size:13.5px; font-weight:600; color:#EDEDED}
+.smm-stat strong{color:var(--lime)}
+.smm-people{position:absolute; top:32px; right:28px; bottom:32px; display:flex; align-items:center; justify-content:flex-end; pointer-events:none; z-index:0}
+.smm-people img{max-width:460px; max-height:100%; width:auto; height:auto; display:block}
+
+/* ── WHO ── */
+.who-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:12px}
+.who-card{padding:0; background:var(--surface); border:1px solid var(--border); border-radius:var(--r-xl); overflow:hidden; transition:all .22s var(--ease); display:flex; flex-direction:column}
+.who-card:hover{border-color:rgba(124,58,237,.25); transform:translateY(-3px); box-shadow:var(--shadow-md)}
+.who-photo{width:100%; aspect-ratio:3/2; object-fit:cover; display:block}
+.who-body{padding:18px 20px 22px}
+.who-emoji{font-size:19px; margin-bottom:10px; display:block}
+.who-card h3{font-size:14.5px; margin-bottom:0}
+.who-card p{font-size:13.5px; color:var(--text2); line-height:1.55}
+
+/* ── WHY ── */
+.why-grid{display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:start}
+.why-list{display:flex; flex-direction:column; gap:16px; margin-top:30px}
+.why-item{display:flex; gap:14px; align-items:flex-start}
+.why-tick{width:22px;height:22px; flex-shrink:0; margin-top:2px; background:var(--accent-soft); border:1px solid rgba(124,58,237,.25); border-radius:50%; display:flex; align-items:center; justify-content:center}
+.why-tick svg{width:10px;height:10px; stroke:var(--accent); stroke-width:3; fill:none}
+.why-item p{font-size:15.5px; color:var(--text2); line-height:1.65}
+.why-item p strong{color:var(--text); font-weight:700}
+.why-stats{display:flex; flex-direction:column; gap:10px}
+.why-stat{padding:20px 24px; background:var(--surface); border:1px solid var(--border); border-radius:var(--r-lg); display:flex; align-items:center; gap:18px; transition:border-color .2s, transform .2s}
+.why-stat:hover{border-color:rgba(124,58,237,.25); transform:translateX(3px)}
+.ws-val{font-size:28px; font-weight:800; color:var(--accent); letter-spacing:-.03em; min-width:82px}
+.ws-label{font-size:14px; color:var(--text2)}
+.lime-mark{background:var(--lime); color:var(--lime-ink); padding:0 12px; border-radius:10px; display:inline-block; transform:rotate(-1.5deg)}
+
+/* ── PRICING ── */
+.pricing-warning{display:flex; align-items:flex-start; gap:12px; max-width:640px; margin:0 auto 40px; padding:16px 20px; background:var(--amber-soft); border:1px solid rgba(255,176,32,.35); border-radius:var(--r-lg); font-size:14px; color:#7A5A00; line-height:1.6}
+.pricing-warning .pw-ico{font-size:17px; flex-shrink:0; line-height:1.4}
+.pricing-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:12px}
+.plan{background:var(--surface); border:1px solid var(--border); border-radius:var(--r-xl); padding:26px 22px; position:relative; transition:all .22s var(--ease); display:flex; flex-direction:column}
+.plan:hover{border-color:var(--border2); transform:translateY(-3px); box-shadow:var(--shadow-md)}
+.plan.pop{background:var(--accent); border-color:var(--accent); color:#fff}
+.plan-badge{position:absolute; top:-11px; left:50%; transform:translateX(-50%); background:var(--lime); color:var(--lime-ink); font-size:10.5px; font-weight:800; padding:4px 13px; border-radius:var(--r-pill); white-space:nowrap; letter-spacing:.03em}
+.plan-name{font-size:12px; font-weight:800; color:var(--text3); margin-bottom:8px; letter-spacing:.05em; text-transform:uppercase}
+.pop .plan-name{color:rgba(255,255,255,.6)}
+.plan-price{font-size:25px; font-weight:800; color:var(--text); margin-bottom:3px; letter-spacing:-.02em}
+.pop .plan-price{color:#fff}
+.plan-period{font-size:12.5px; color:var(--text3); margin-bottom:18px}
+.pop .plan-period{color:rgba(255,255,255,.55)}
+.plan-hr{height:1px; background:var(--border); margin:16px 0}
+.pop .plan-hr{background:rgba(255,255,255,.16)}
+.plan-feats{display:flex; flex-direction:column; gap:7px; margin-bottom:20px; flex:1}
+.pf{font-size:13.5px; color:var(--text2); line-height:1.4; padding-bottom:7px; border-bottom:1px solid var(--border)}
+.pf:last-child{border-bottom:none; padding-bottom:0}
+.pop .pf{color:rgba(255,255,255,.8); border-color:rgba(255,255,255,.14)}
+.plan-cta{width:100%}
+.pop .plan-cta.btn-ghost{background:#fff; color:var(--accent-ink); border:none}
+.pricing-note{text-align:center; margin-top:26px; font-size:13px; color:var(--text3)}
+
+/* ── FAQ ── */
+.faq-list{max-width:720px; margin:0 auto}
+.faq-item{border-bottom:1px solid var(--border)}
+.faq-item:first-child{border-top:1px solid var(--border)}
+.faq-q{display:flex; justify-content:space-between; align-items:center; padding:21px 2px; cursor:pointer; font-weight:600; font-size:16px; color:var(--text); gap:16px}
+.faq-q:hover{color:var(--accent)}
+.faq-icon{width:27px;height:27px; flex-shrink:0; background:var(--surface2); border:1px solid var(--border2); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:16px; color:var(--text2); transition:all .25s var(--ease)}
+.faq-item.open .faq-icon{background:var(--accent); border-color:var(--accent); color:#fff; transform:rotate(45deg)}
+.faq-a{max-height:0; overflow:hidden; transition:max-height .35s var(--ease), padding .35s; font-size:15px; color:var(--text2); line-height:1.75}
+.faq-item.open .faq-a{max-height:220px; padding-bottom:20px}
+.support-cta{max-width:720px; margin:40px auto 0; display:flex; align-items:center; gap:20px; flex-wrap:wrap; justify-content:center; padding:26px 30px; background:var(--surface); border:1px solid var(--border); border-radius:var(--r-xl); box-shadow:var(--shadow-md)}
+.support-cta-ico{width:60px; height:60px; flex-shrink:0; border-radius:16px}
+.support-cta-txt{flex:1; min-width:200px}
+.support-cta-txt h3{font-size:16px; margin-bottom:3px}
+.support-cta-txt p{font-size:13.5px; color:var(--text2)}
+.support-cta-btn{box-shadow:0 10px 26px -8px rgba(200,255,62,.55); animation:ctaPulse 2.6s ease-in-out infinite}
+@keyframes ctaPulse{0%,100%{box-shadow:0 10px 26px -8px rgba(200,255,62,.55)}50%{box-shadow:0 14px 32px -6px rgba(200,255,62,.8)}}
+
+/* ── FINAL CTA ── */
+.final-cta{padding:120px 0; position:relative; overflow:hidden}
+.final-cta::before{content:''; position:absolute; inset:0; pointer-events:none; background:radial-gradient(ellipse 60% 70% at 50% 40%, rgba(124,58,237,.08) 0%, transparent 70%)}
+.final-grid{display:grid; grid-template-columns:1.05fr .95fr; gap:56px; align-items:center; text-align:left}
+.final-cta h2{max-width:560px; margin:12px 0 20px}
+.final-cta p{font-size:17px; color:var(--text2); max-width:460px; margin:0 0 36px; line-height:1.7}
+.final-btns{display:flex; justify-content:flex-start; gap:12px; flex-wrap:wrap}
+.final-video-wrap{position:relative}
+.final-video{width:100%; aspect-ratio:1/1; object-fit:cover; border-radius:var(--r-2xl); box-shadow:var(--shadow-lg); display:block; background:var(--surface2)}
+@media(max-width:860px){
+  .final-grid{grid-template-columns:1fr; text-align:center; gap:36px}
+  .final-cta h2, .final-cta p{margin-left:auto; margin-right:auto}
+  .final-btns{justify-content:center}
+  .final-video-wrap{max-width:420px; margin:0 auto}
+}
+
+/* ── FOOTER ── */
+footer{border-top:1px solid var(--border); padding:56px 0 30px}
+.foot-inner{display:grid; grid-template-columns:1.5fr 1fr 1fr 1fr; gap:48px; margin-bottom:44px}
+.foot-brand p{font-size:14px; color:var(--text3); line-height:1.65; max-width:250px; margin-top:16px}
+.foot-social{display:flex; gap:10px; margin-top:18px}
+.foot-social a{width:36px; height:36px; border-radius:50%; background:var(--surface2); border:1px solid var(--border); display:flex; align-items:center; justify-content:center; color:var(--text2); transition:all .2s var(--ease)}
+.foot-social a:hover{background:var(--accent); border-color:var(--accent); color:#fff; transform:translateY(-2px)}
+.foot-social svg{width:16px; height:16px}
+.foot-col h4{font-size:11px; font-weight:800; color:var(--text2); margin-bottom:14px; letter-spacing:.08em; text-transform:uppercase}
+.foot-links{display:flex; flex-direction:column; gap:10px}
+.foot-links a{font-size:14px; color:var(--text3); text-decoration:none; transition:color .15s}
+.foot-links a:hover{color:var(--text)}
+.foot-bottom{border-top:1px solid var(--border); padding-top:22px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; font-size:12.5px; color:var(--text3)}
+.pay-badges{display:flex; gap:8px}
+.pay-badge{display:inline-flex; align-items:center; gap:4px; background:var(--surface2); border:1px solid var(--border); border-radius:var(--r-pill); padding:4px 11px; font-size:12px; color:var(--text2)}
+
+/* ── SCROLL REVEAL ── */
+[data-a="up"]{opacity:0; transform:translateY(26px); transition:opacity .6s ease, transform .6s var(--ease)}
+[data-a="left"]{opacity:0; transform:translateX(-32px); transition:opacity .6s ease, transform .6s var(--ease)}
+[data-a="right"]{opacity:0; transform:translateX(32px); transition:opacity .6s ease, transform .6s var(--ease)}
+[data-a="pop"]{opacity:0; transform:scale(.92); transition:opacity .5s ease, transform .55s cubic-bezier(.34,1.4,.64,1)}
+[data-a].on{opacity:1 !important; transform:none !important}
+
+/* ── RESPONSIVE ── */
+@media(max-width:1024px){
+  .pricing-grid{grid-template-columns:repeat(2,1fr)}
+  .bento{grid-template-columns:repeat(3,1fr)}
+  .bento-card.wide{grid-column:span 1}
+  .who-grid{grid-template-columns:repeat(2,1fr)}
+  .split{grid-template-columns:1fr; gap:44px}
+  .case-frame{order:-1}
+  .foot-inner{grid-template-columns:1fr 1fr}
+}
+@media(max-width:1180px){
+  .smm-people{display:none}
+}
+@media(max-width:768px){
+  .section{padding:72px 0}
+  .nav-links{display:none}
+  .hero-grid{grid-template-columns:1fr}
+  .hero-vis{max-width:380px; margin:0 auto}
+  .pain-grid{grid-template-columns:1fr}
+  .compare-grid{grid-template-columns:1fr}
+  .bento{grid-template-columns:repeat(2,1fr)}
+  .bento-card.big{padding-bottom:26px}
+  .who-grid{grid-template-columns:1fr 1fr}
+  .why-grid{grid-template-columns:1fr}
+  .pricing-grid{grid-template-columns:1fr 1fr}
+  .smm-banner{padding:40px 26px}
+  .smm-stats{justify-content:center}
+}
+@media(max-width:520px){
+  h1{font-size:2.3rem} h2{font-size:1.7rem}
+  .bento,.pricing-grid,.foot-inner,.who-grid{grid-template-columns:1fr}
+  .bento-swipe-slide{flex-basis:88%}
+  .strip{font-size:11.5px; padding:8px 14px}
+  .strip .sep{display:none}
+  .strip br{display:block; content:''}
+}
+</style>
+</head>
+<body>
+
+<div class="strip">Все нейросети для соцсетей — в одном приложении <span class="sep">·</span> Оплата картой РФ по СБП</div>
+
+<nav>
+  <div class="nav-inner">
+    <a href="/"><img src="logo_0.svg" alt="#ВТренде" class="logo-img" /></a>
+    <div class="nav-links">
+      <a href="#features">Возможности</a>
+      <a href="#trendwatcher">В тренде</a>
+      <a href="#how">Как работает</a>
+      <a href="#pricing">Цены</a>
+      <a href="#faq">Вопросы</a>
+    </div>
+    <a href="https://t.me/vtrendeappbot" target="_blank" rel="noopener" class="btn btn-primary btn-sm">Начать бесплатно</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <div class="hero-badge" data-a="up"><span class="dot"></span>Работает без VPN и зарубежных карт</div>
+        <h1 data-a="up" style="transition-delay:.08s">Создавайте контент,<br/>который набирает<br/><em>просмотры</em></h1>
+        <p data-a="up" style="transition-delay:.16s">Десятки нейросетей для соцсетей — в одном приложении. Видео и фото с вашим лицом, карусели, мультики, тексты — готово за минуты, без съёмок и монтажа. Оплата картой РФ, без VPN.</p>
+        <div class="hero-btns" data-a="up" style="transition-delay:.24s">
+          <a href="https://t.me/vtrendeappbot" target="_blank" rel="noopener" class="btn btn-lime btn-lg">Начать бесплатно</a>
+          <a href="#features" class="btn btn-ghost btn-lg">Смотреть возможности</a>
+        </div>
+        <p class="hero-note" data-a="up" style="transition-delay:.32s">Старт бесплатно — 30 монет в подарок. Карта не нужна.</p>
+      </div>
+      <div class="hero-vis" data-a="right" style="transition-delay:.18s">
+        <div class="float-card fc-top">
+          <div class="fc-big">10+</div>
+          <div class="fc-sub">нейросетей в одном месте</div>
+        </div>
+        <div class="app-window">
+          <div class="app-topbar">
+            <div class="app-mark">#</div>
+            <div class="app-bar-title">Трендвотчер · скоро</div>
+          </div>
+          <div class="app-body">
+            <div class="trend-item"><div class="ti-rank">#1</div><div class="ti-text">Утренние ритуалы эксперта</div><div class="ti-bar"><div class="ti-fill" style="width:94%"></div></div><div class="ti-views">2.4М</div><div class="ti-badge">🔥 Горячо</div></div>
+            <div class="trend-item"><div class="ti-rank">#2</div><div class="ti-text">Разбор ошибок клиентов</div><div class="ti-bar"><div class="ti-fill" style="width:78%"></div></div><div class="ti-views">1.8М</div><div class="ti-badge">📈 Растёт</div></div>
+            <div class="trend-item"><div class="ti-rank">#3</div><div class="ti-text">До/После результат</div><div class="ti-bar"><div class="ti-fill" style="width:63%"></div></div><div class="ti-views">1.2М</div><div class="ti-badge">✨ Новое</div></div>
+            <div class="trend-item"><div class="ti-rank">#4</div><div class="ti-text">Топ-5 советов за 60 сек</div><div class="ti-bar"><div class="ti-fill" style="width:50%"></div></div><div class="ti-views">980К</div><div class="ti-badge">📌 Стабильно</div></div>
+          </div>
+        </div>
+        <div class="float-card fc-bot">
+          <div class="ico">🎬</div>
+          <div><div class="fc-title">Видео готово</div><div class="fc-sub">С вашим лицом, за минуты</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker-wrap" data-a="up">
+  <div class="ticker-track" id="tickerTrack">
+    <span class="ticker-item"><span class="tdot"></span>Видео с вашим лицом без съёмок.</span>
+    <span class="ticker-item"><span class="tdot"></span>Работает без VPN, оплата картой РФ.</span>
+    <span class="ticker-item"><span class="tdot"></span>Замени пять сервисов одним приложением.</span>
+    <span class="ticker-item"><span class="tdot"></span>Нейрофото, карусели, мультики, тексты.</span>
+    <span class="ticker-item"><span class="tdot"></span>Готовый контент за минуты.</span>
+    <span class="ticker-item"><span class="tdot"></span>Трендвотчер и автопубликация — скоро.</span>
+  </div>
+</div>
+
+<!-- PAIN -->
+<section class="section section-top" id="features">
+  <div class="container">
+    <div class="chip" data-a="up"><span class="dot"></span>Узнаёте себя?</div>
+    <h2 data-a="up" style="max-width:560px;margin-bottom:40px;transition-delay:.08s">Если это про вас — вы по адресу</h2>
+    <div class="pain-grid">
+      <div class="pain-card" data-a="left"><div class="pain-ico">⏰</div><p>Контент отнимает часы, а просмотров всё равно мало.</p></div>
+      <div class="pain-card" data-a="right"><div class="pain-ico">🤷</div><p>Непонятно, что сейчас залетает и почему одни ролики набирают, а другие нет.</p></div>
+      <div class="pain-card" data-a="left" style="transition-delay:.1s"><div class="pain-ico">💡</div><p>Идеи заканчиваются, а выкладывать нужно постоянно.</p></div>
+      <div class="pain-card" data-a="right" style="transition-delay:.1s"><div class="pain-ico">🔒</div><p>Нейросети — это дорого, сложно и не работает без ВПН.</p></div>
+    </div>
+    <div class="pain-answer" data-a="up" style="transition-delay:.08s"><strong>ВТренде</strong> — один инструмент, который закрывает всё это разом. Без часов работы, без гадания, без пяти подписок.</div>
+  </div>
+</section>
+
+<!-- COMPARE -->
+<section class="section section-top">
+  <div class="container">
+    <div class="chip" data-a="up"><span class="dot"></span>До и после</div>
+    <h2 data-a="up" style="margin-bottom:40px;transition-delay:.08s">Было · Стало</h2>
+    <div class="compare-grid">
+      <div class="compare-col before" data-a="left">
+        <div class="compare-col-head">Было</div>
+        <div class="compare-rows">
+          <div class="compare-row-item"><span class="c-ico c-ico-x">✗</span> Часами делать контент вручную</div>
+          <div class="compare-row-item"><span class="c-ico c-ico-x">✗</span> Сниматься на камеру самому</div>
+          <div class="compare-row-item"><span class="c-ico c-ico-x">✗</span> Пять разных сервисов и подписок</div>
+          <div class="compare-row-item"><span class="c-ico c-ico-x">✗</span> Зависеть от ВПН и зарубежных карт</div>
+        </div>
+      </div>
+      <div class="compare-col after" data-a="right" style="transition-delay:.08s">
+        <div class="compare-col-head">Стало</div>
+        <div class="compare-rows">
+          <div class="compare-row-item"><span class="c-ico c-ico-ok">✓</span> Готовое видео и фото за минуты</div>
+          <div class="compare-row-item"><span class="c-ico c-ico-ok">✓</span> Ваше лицо в кадре без съёмок</div>
+          <div class="compare-row-item"><span class="c-ico c-ico-ok">✓</span> Все нейросети в одном месте</div>
+          <div class="compare-row-item"><span class="c-ico c-ico-ok">✓</span> Работает без ВПН, оплата картой РФ</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRENDWATCHER (CASE 1) -->
+<!-- HOW (CASE 2) -->
+<section class="section section-top" id="how">
+  <div class="container">
+    <div class="split">
+      <div class="case-frame" data-a="pop" style="transition-delay:.06s">
+        <div class="case-glow"></div>
+        <div class="case-phone" data-case="gen" data-sync="how-steps" data-interval="2600">
+          <img class="phone-frame-img" src="assets/phone-mockup.png" alt="" />
+          <div class="case-screen">
+            <div class="case-state active">
+              <div class="cs-label">Шаг 1</div>
+              <div class="cs-title">Заполните профиль</div>
+              <div class="cs-sub">Загрузите несколько фото — съёмки не нужны</div>
+              <div style="display:grid; grid-template-columns:repeat(2,1fr); gap:8px; margin-top:4px">
+                <img src="assets/avatar-1.jpg" alt="" style="aspect-ratio:1;width:100%;display:block;object-fit:cover;border-radius:12px" />
+                <img src="assets/avatar-2.jpg" alt="" style="aspect-ratio:1;width:100%;display:block;object-fit:cover;border-radius:12px" />
+                <img src="assets/avatar-3.jpg" alt="" style="aspect-ratio:1;width:100%;display:block;object-fit:cover;border-radius:12px" />
+                <img src="assets/avatar-4.jpg" alt="" style="aspect-ratio:1;width:100%;display:block;object-fit:cover;border-radius:12px" />
+              </div>
+              <div class="cs-btn" data-tap>Создать персону</div>
+            </div>
+            <div class="case-state">
+              <div class="cs-label">Шаг 2</div>
+              <div class="cs-title">Выберите, что создать</div>
+              <div class="cs-sub">Видео, нейрофото, карусель, мультик или пост</div>
+              <div class="cs-row" data-tap><div class="cs-avatar"></div><div style="flex:1"><div style="font-size:12.5px;font-weight:700">Видео с вами в кадре</div><div style="font-size:11px;color:var(--text2)">Клип-моушен</div></div></div>
+              <div class="cs-row"><div class="cs-avatar" style="background:linear-gradient(135deg,#C8FF3E,#7C3AED)"></div><div style="flex:1"><div style="font-size:12.5px;font-weight:700">Карусель-пост</div><div style="font-size:11px;color:var(--text2)">Под вашу нишу</div></div></div>
+            </div>
+            <div class="case-state">
+              <div class="cs-center">
+                <div class="cs-ring"><div class="cs-mark">#</div></div>
+                <div style="font-weight:700; font-size:15px">Собираем контент…</div>
+                <div class="cs-progress"><div class="cs-progress-fill"></div></div>
+                <div style="font-size:12px;color:var(--text2)">~40 секунд</div>
+              </div>
+            </div>
+            <div class="case-state">
+              <div class="cs-label">Готово</div>
+              <div class="cs-title">Скачайте и опубликуйте</div>
+              <div class="cs-sub">В любые соцсети · без ВПН</div>
+              <div class="cs-result-vid cs-video-wrap">
+                <video class="cs-video" src="assets/how-demo.mp4" muted loop playsinline preload="auto"></video>
+                <div class="cs-tag">🎬 Пример результата</div>
+                <button type="button" class="cs-sound-btn" aria-label="Включить звук" aria-pressed="false"><span class="snd-ico">🔇</span></button>
+              </div>
+              <div class="cs-badge-pub">📅 Автопубликация — скоро</div>
+            </div>
+          </div>
+          <div class="case-cursor"></div>
+        </div>
+        <div class="case-dots">
+          <span class="case-dot active"></span><span class="case-dot"></span><span class="case-dot"></span><span class="case-dot"></span>
+        </div>
+      </div>
+      <div class="split-copy">
+        <div class="chip" data-a="up"><span class="dot"></span>Как это работает</div>
+        <h2 data-a="up" style="transition-delay:.06s">Четыре шага — и контент готов</h2>
+        <div class="step-list" id="how-steps" data-a="up" style="margin-top:32px;transition-delay:.1s">
+          <div class="step-row is-active"><div class="step-num">1</div><div><h3>Заполните профиль</h3><p>Загрузите несколько фото, сервис создаёт вашу персону. Съёмки не нужны.</p></div></div>
+          <div class="step-row"><div class="step-num">2</div><div><h3>Выберите, что создать</h3><p>Видео с вами в кадре, нейрофото, карусель, мультик или пост — на выбор.</p></div></div>
+          <div class="step-row"><div class="step-num">3</div><div><h3>Получите готовый контент</h3><p>Сервис собирает готовые видео и посты с вами в кадре, просто, за минуты.</p></div></div>
+          <div class="step-row"><div class="step-num">4</div><div><h3>Скачайте и опубликуйте</h3><p>Публикуйте сами в любые соцсети. Автопубликация по расписанию — скоро.</p></div></div>
+        </div>
+        <p class="step-footnote" data-a="up">Под капотом — модели уровня Google Veo, Gemini и ElevenLabs. Мы просто собрали их в одном простом интерфейсе, без VPN и отдельных подписок на каждую.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-top" id="trendwatcher">
+  <div class="container">
+    <div class="split">
+      <div class="split-copy">
+        <div class="chip" data-a="up"><span class="dot"></span>Трендвотчер · Скоро</div>
+        <h2 data-a="up" style="transition-delay:.06s">Скоро: анализируем — вы берёте и повторяете</h2>
+        <p class="lead" data-a="up" style="transition-delay:.1s">Разрабатываем систему, которая покажет, что прямо сейчас залетает именно в вашей нише, — с разбором, почему ролики набирают просмотры.</p>
+        <div class="bullet-list" id="tw-bullets" data-a="up" style="transition-delay:.14s">
+          <div class="bullet-item is-active"><div class="bullet-ico">🔍</div><div class="bullet-txt"><h3>Вирусные ролики вашей ниши</h3><p>Находим среди миллионов видео и показываем, что работает прямо сейчас.</p></div></div>
+          <div class="bullet-item"><div class="bullet-ico">🧩</div><div class="bullet-txt"><h3>Разбор по полочкам</h3><p>Хук, удержание внимания, структура.</p></div></div>
+          <div class="bullet-item"><div class="bullet-ico">✂️</div><div class="bullet-txt"><h3>Сценарий под вас</h3><p>Берём залетевшую идею и переделываем в вашем стиле.</p></div></div>
+          <div class="bullet-item"><div class="bullet-ico">👀</div><div class="bullet-txt"><h3>Слежка за конкурентами</h3><p>Лучшие ролики конкурентов на старте.</p></div></div>
+          <div class="bullet-item"><div class="bullet-ico">⚡</div><div class="bullet-txt"><h3>Свежая база</h3><p>Данные обновляются в реальном времени.</p></div></div>
+        </div>
+      </div>
+      <div class="case-frame" data-a="pop" style="transition-delay:.1s">
+        <div class="case-glow"></div>
+        <div class="case-phone" data-case="trend" data-sync="tw-bullets" data-interval="2400">
+          <img class="phone-frame-img" src="assets/phone-mockup.png" alt="" />
+          <div class="case-screen">
+            <div class="case-state active">
+              <div class="cs-label">Трендвотчер</div>
+              <div class="cs-title">Ваша ниша · сейчас</div>
+              <div class="cs-sub">97% точность подбора</div>
+              <div class="cs-row" data-tap><div class="cs-avatar"></div><div style="flex:1"><div style="font-size:12.5px;font-weight:700">Утренние ритуалы эксперта</div><div style="font-size:11px;color:var(--text2)">2.4М просмотров · 🔥</div></div></div>
+              <div class="cs-row"><div class="cs-avatar" style="background:linear-gradient(135deg,#C8FF3E,#7C3AED)"></div><div style="flex:1"><div style="font-size:12.5px;font-weight:700">Разбор ошибок клиентов</div><div style="font-size:11px;color:var(--text2)">1.8М просмотров · 📈</div></div></div>
+              <div class="cs-row"><div class="cs-avatar" style="background:linear-gradient(135deg,#FF9F43,#7C3AED)"></div><div style="flex:1"><div style="font-size:12.5px;font-weight:700">До/После результат</div><div style="font-size:11px;color:var(--text2)">1.2М просмотров · ✨</div></div></div>
+            </div>
+            <div class="case-state">
+              <div class="cs-label">Разбор по полочкам</div>
+              <div class="cs-title">Почему это залетело</div>
+              <div class="cs-sub">Хук, удержание, структура</div>
+              <div class="cs-row"><div style="width:30px;height:30px;border-radius:9px;background:var(--lime);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:13px">🪝</div><div><div style="font-size:12.5px;font-weight:700">Хук — 0.8 сек</div><div style="font-size:11px;color:var(--text2)">Останавливает скролл</div></div></div>
+              <div class="cs-row"><div style="width:30px;height:30px;border-radius:9px;background:var(--accent-soft);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:13px">⏱</div><div><div style="font-size:12.5px;font-weight:700">Удержание 82%</div><div style="font-size:11px;color:var(--text2)">Досматривают до конца</div></div></div>
+              <div class="cs-row"><div style="width:30px;height:30px;border-radius:9px;background:var(--accent-soft);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:13px">🧩</div><div><div style="font-size:12.5px;font-weight:700">Структура: 3 акта</div><div style="font-size:11px;color:var(--text2)">Проблема → решение → вывод</div></div></div>
+            </div>
+            <div class="case-state">
+              <div class="cs-center">
+                <div class="cs-ring"><div class="cs-mark">#</div></div>
+                <div style="font-weight:700; font-size:14.5px">Собираем сценарий под вас…</div>
+                <div class="cs-progress"><div class="cs-progress-fill"></div></div>
+              </div>
+            </div>
+            <div class="case-state">
+              <div class="cs-label">Готово</div>
+              <div class="cs-title">Сценарий готов</div>
+              <div class="cs-sub">В вашем стиле, не копия</div>
+              <div class="cs-result-vid"><div class="cs-tag">✨ Ваша версия</div><div class="cs-play">▶</div></div>
+              <div class="cs-badge-pub">🔥 Горячо · подходит вашей нише</div>
+            </div>
+          </div>
+          <div class="case-cursor"></div>
+        </div>
+        <div class="case-dots">
+          <span class="case-dot active"></span><span class="case-dot"></span><span class="case-dot"></span><span class="case-dot"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES / BENTO (CASE 3 inside) -->
+<section class="section section-top">
+  <div class="container">
+    <div class="chip" data-a="up"><span class="dot"></span>Возможности</div>
+    <h2 data-a="up" style="margin-bottom:40px;transition-delay:.08s">Что можно создать</h2>
+    <div class="bento">
+      <div class="bento-card big" data-a="pop">
+        <div class="bento-ico">🎬</div>
+        <h3>Клип-моушен</h3>
+        <p>Повторяйте танцевальные и видео-тренды, ваше лицо в вирусном движении. Просто.</p>
+        <div class="clip-demo" id="clipDemo">
+          <div class="clip-demo-item"><img src="assets/clip-source.jpg" alt="" /></div>
+          <span class="clip-demo-op">+</span>
+          <div class="clip-demo-item cs-video-wrap">
+            <video class="cs-video" src="assets/clip-template-man.mp4" muted autoplay loop playsinline preload="auto"></video>
+            <button type="button" class="cs-sound-btn" aria-label="Включить звук" aria-pressed="false"><span class="snd-ico">🔇</span></button>
+          </div>
+          <span class="clip-demo-op">=</span>
+          <div class="clip-demo-item cs-video-wrap">
+            <video class="cs-video" src="assets/clip-result-woman.mp4" muted autoplay loop playsinline preload="auto"></video>
+            <button type="button" class="cs-sound-btn" aria-label="Включить звук" aria-pressed="false"><span class="snd-ico">🔇</span></button>
+          </div>
+        </div>
+      </div>
+      <div class="bento-card wide" data-a="pop" style="transition-delay:.04s">
+        <div class="bento-ico">🧸</div>
+        <h3>Мультики и говорящий маскот</h3>
+        <p>Персонаж, который ведёт соцсети за вас.</p>
+        <div class="bento-media cs-video-wrap" style="aspect-ratio:420/236">
+          <video class="cs-video" src="assets/mascot-cartoon.mp4" muted autoplay loop playsinline preload="auto"></video>
+          <button type="button" class="cs-sound-btn" aria-label="Включить звук" aria-pressed="false"><span class="snd-ico">🔇</span></button>
+        </div>
+      </div>
+      <div class="bento-card wide" data-a="pop" style="transition-delay:.08s">
+        <div class="bento-ico">✍️</div>
+        <h3>Тексты и сценарии</h3>
+        <p>Посты, сценарии, подписи, хэштеги, готово к публикации.</p>
+        <div class="bento-media" style="aspect-ratio:2636/1652; background:#fff"><img src="assets/scenario-hooks.jpg" alt="" /></div>
+      </div>
+      <div class="bento-card has-soon" data-a="pop" style="transition-delay:.12s"><div class="bento-ico">📊</div><span class="bento-soon">Скоро</span><h3>Трендвотчер</h3><p>Разбор вирусных роликов вашей ниши, уже в разработке.</p></div>
+      <div class="bento-card has-soon" data-a="pop" style="transition-delay:.16s"><div class="bento-ico">✂️</div><span class="bento-soon">Скоро</span><h3>Из длинного — короткие</h3><p>Из одного длинного видео десятки коротких роликов.</p></div>
+      <div class="bento-card wide" data-a="pop" style="transition-delay:.2s">
+        <div class="bento-ico">💬</div>
+        <h3>Чат-помощник</h3>
+        <p>Диалог с нейросетью, если сложно сформулировать запрос.</p>
+        <div class="bento-media" style="aspect-ratio:2632/1396; background:#fff"><img src="assets/chat-assistant.jpg" alt="" /></div>
+      </div>
+      <div class="bento-card" data-a="pop" style="transition-delay:.24s">
+        <div class="bento-ico">🧑‍💻</div>
+        <h3>Ваша персона</h3>
+        <p>Реалистичные видео с вами в кадре, без съёмок на камеру.</p>
+        <div class="bento-media crop-ok"><img src="assets/persona-avatar.jpg" alt="" /></div>
+      </div>
+      <div class="bento-card" data-a="pop" style="transition-delay:.28s">
+        <div class="bento-ico">🎠</div>
+        <h3>Посты-карусели</h3>
+        <p>Продающие и экспертные, под вашу нишу.</p>
+        <div class="bento-media bento-swipe" id="postsSlider" style="aspect-ratio:4/5">
+          <div class="bento-swipe-track">
+            <div class="bento-swipe-slide"><img src="assets/carousel-1.jpg" alt="" /></div>
+            <div class="bento-swipe-slide"><img src="assets/carousel-2.jpg" alt="" /></div>
+            <div class="bento-swipe-slide"><img src="assets/carousel-3.jpg" alt="" /></div>
+            <div class="bento-swipe-slide"><img src="assets/carousel-4.jpg" alt="" /></div>
+            <div class="bento-swipe-slide"><img src="assets/carousel-5.jpg" alt="" /></div>
+          </div>
+        </div>
+      </div>
+      <div class="bento-card" data-a="pop" style="transition-delay:.32s">
+        <div class="bento-ico">🖼️</div>
+        <h3>Любые фото и картинки</h3>
+        <p>Нейрофото, открытки, замена фона за пару минут.</p>
+        <div class="bento-media bento-swipe" style="aspect-ratio:4/5">
+          <div class="bento-swipe-track">
+            <div class="bento-swipe-slide"><img src="assets/photo-lego.jpg" alt="" /></div>
+            <div class="bento-swipe-slide"><img src="assets/photo-birthday.jpg" alt="" /></div>
+          </div>
+        </div>
+      </div>
+      <div class="bento-card has-soon" data-a="pop" style="transition-delay:.36s"><div class="bento-ico">📅</div><span class="bento-soon">Скоро</span><h3>Автопубликация</h3><p>Публикация во все соцсети по расписанию, уже в разработке.</p></div>
+    </div>
+    <p style="text-align:center; margin-top:32px; color:var(--text2); font-size:15px" data-a="up">Простые инструменты на каждый день — для соцсетей, работы и дома.</p>
+  </div>
+</section>
+
+<!-- SMM -->
+<section class="section section-top">
+  <div class="container">
+    <div class="smm-banner" data-a="up">
+      <div class="smm-people"><img src="assets/smm-team.png" alt="" /></div>
+      <div class="chip" style="background:rgba(255,255,255,.1); border-color:rgba(255,255,255,.18); color:#fff"><span class="dot" style="background:var(--lime)"></span>Замени SMM</div>
+      <h2>Один инструмент вместо целой команды</h2>
+      <p>Идея, текст, фото, видео, мультики — всё, что нужно для контента, в одном приложении. Просто и без ВПН.</p>
+      <div class="smm-stats">
+        <div class="smm-stat"><strong>Дешевле</strong> штатного SMM-специалиста</div>
+        <div class="smm-stat">Доступно <strong>24/7</strong></div>
+        <div class="smm-stat">Справится <strong>любой</strong></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHO -->
+<section class="section section-top">
+  <div class="container">
+    <div class="chip center fit" data-a="up"><span class="dot"></span>Для кого</div>
+    <h2 class="center" data-a="up" style="max-width:640px;margin-bottom:14px;transition-delay:.08s">Реши любую задачу для своего блога в одном месте</h2>
+    <p class="center" data-a="up" style="max-width:640px;font-weight:700;margin-bottom:40px;transition-delay:.12s">Для всех — от новичка до профи.</p>
+    <div class="who-grid">
+      <div class="who-card" data-a="pop"><img class="who-photo" src="assets/who-experts.jpg" alt="" /><div class="who-body"><span class="who-emoji">🎓</span><h3>Эксперты, коучи, специалисты</h3></div></div>
+      <div class="who-card" data-a="pop" style="transition-delay:.06s"><img class="who-photo" src="assets/who-bloggers.jpg" alt="" /><div class="who-body"><span class="who-emoji">🎬</span><h3>Блогеры, контент-креаторы, UGC-креаторы</h3></div></div>
+      <div class="who-card" data-a="pop" style="transition-delay:.12s"><img class="who-photo" src="assets/who-business.jpg" alt="" /><div class="who-body"><span class="who-emoji">🏢</span><h3>Малый бизнес и фрилансеры</h3></div></div>
+      <div class="who-card" data-a="pop" style="transition-delay:.18s"><img class="who-photo" src="assets/who-social.jpg" alt="" /><div class="who-body"><span class="who-emoji">👥</span><h3>И все, кто хочет быть на виду</h3></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY -->
+<section class="section section-top">
+  <div class="container">
+    <div class="why-grid">
+      <div>
+        <div class="chip" data-a="up"><span class="dot"></span>Почему ВТренде</div>
+        <h2 data-a="up" style="transition-delay:.08s">Популярность — это <span class="lime-mark">просто</span></h2>
+        <div class="why-list">
+          <div class="why-item" data-a="left" style="transition-delay:.05s"><div class="why-tick"><svg viewBox="0 0 10 8"><polyline points="1,4 3.5,7 9,1"/></svg></div><p><strong>Ваше лицо в кадре</strong> — без камеры, монтажа и студии.</p></div>
+          <div class="why-item" data-a="left" style="transition-delay:.12s"><div class="why-tick"><svg viewBox="0 0 10 8"><polyline points="1,4 3.5,7 9,1"/></svg></div><p><strong>Оплата монетами</strong> — платите только за то, что генерируете.</p></div>
+          <div class="why-item" data-a="left" style="transition-delay:.19s"><div class="why-tick"><svg viewBox="0 0 10 8"><polyline points="1,4 3.5,7 9,1"/></svg></div><p><strong>Дешевле SMM-специалиста</strong> и доступно в любое время.</p></div>
+          <div class="why-item" data-a="left" style="transition-delay:.26s"><div class="why-tick"><svg viewBox="0 0 10 8"><polyline points="1,4 3.5,7 9,1"/></svg></div><p><strong>Трендвотчер и автопубликация</strong> — уже в разработке, скоро в приложении.</p></div>
+          <div class="why-item" data-a="left" style="transition-delay:.33s"><div class="why-tick"><svg viewBox="0 0 10 8"><polyline points="1,4 3.5,7 9,1"/></svg></div><p><strong>Никакого VPN.</strong> Оплата картой РФ, по СБП или криптой.</p></div>
+        </div>
+      </div>
+      <div class="why-stats">
+        <div class="why-stat" data-a="right" style="transition-delay:.05s"><div class="ws-val" data-count="10" data-suffix="+">0</div><div class="ws-label">нейросетей в одном приложении</div></div>
+        <div class="why-stat" data-a="right" style="transition-delay:.12s"><div class="ws-val" data-count="1" data-suffix="">0</div><div class="ws-label">приложение вместо 5 сервисов и подписок</div></div>
+        <div class="why-stat" data-a="right" style="transition-delay:.19s"><div class="ws-val" data-static="0">0</div><div class="ws-label">ВПН, работает напрямую в России</div></div>
+        <div class="why-stat" data-a="right" style="transition-delay:.26s"><div class="ws-val" data-static="24/7">24/7</div><div class="ws-label">доступ к сервису</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="section section-top" id="pricing">
+  <div class="container">
+    <div class="chip center fit" data-a="up"><span class="dot"></span>Цены</div>
+    <h2 class="center" data-a="up" style="margin-bottom:10px;transition-delay:.06s">Начните бесплатно</h2>
+    <p class="center" data-a="up" style="color:var(--text2);max-width:560px;margin:0 auto 32px;font-size:15.5px;line-height:1.7;transition-delay:.12s">Переходите на платный, когда увидите результат.</p>
+    <div class="pricing-warning" data-a="up">
+      <div class="pw-ico">💬</div>
+      <div>Оплата — в нашем Telegram-боте. После нажатия кнопки откроется бот.</div>
+    </div>
+    <div class="pricing-grid">
+      <div class="plan" data-a="up">
+        <div class="plan-name">Бесплатно</div>
+        <div class="plan-price">0 ₽</div>
+        <div class="plan-period">30 монет в подарок · без карты</div>
+        <div class="plan-hr"></div>
+        <div class="plan-feats"><div class="pf">Доступ к основным возможностям</div><div class="pf">Простой старт</div></div>
+        <a href="https://t.me/vtrendeappbot" target="_blank" rel="noopener" class="btn btn-ghost plan-cta">Начать бесплатно</a>
+      </div>
+      <div class="plan" data-a="up" style="transition-delay:.05s">
+        <div class="plan-name">Старт</div>
+        <div class="plan-price">499 ₽</div>
+        <div class="plan-period">в месяц · 600 монет</div>
+        <div class="plan-hr"></div>
+        <div class="plan-feats"><div class="pf">Нейрофото, видео, аватар</div><div class="pf">Клип-моушен, карусели, открытки</div><div class="pf">Безлимитный чат и тексты</div></div>
+        <a href="https://t.me/vtrendeappbot" target="_blank" rel="noopener" class="btn btn-ghost plan-cta">Выбрать</a>
+      </div>
+      <div class="plan pop" data-a="pop" style="transition-delay:.1s">
+        <div class="plan-badge">Выбирают чаще</div>
+        <div class="plan-name">Про</div>
+        <div class="plan-price">1 990 ₽</div>
+        <div class="plan-period">в месяц · 3200 монет</div>
+        <div class="plan-hr"></div>
+        <div class="plan-feats"><div class="pf">Всё из Старт</div><div class="pf">Трендвотчер — скоро</div><div class="pf">Автопубликация, 1–3 соцсети — скоро</div></div>
+        <a href="https://t.me/vtrendeappbot" target="_blank" rel="noopener" class="btn btn-ghost plan-cta">Выбрать</a>
+      </div>
+      <div class="plan" data-a="up" style="transition-delay:.15s">
+        <div class="plan-name">Бизнес</div>
+        <div class="plan-price">4 990 ₽</div>
+        <div class="plan-period">в месяц · 8000 монет</div>
+        <div class="plan-hr"></div>
+        <div class="plan-feats"><div class="pf">Всё из Про</div><div class="pf">Приоритет генерации · командный доступ</div><div class="pf">Расширенные лимиты автопостинга — скоро</div></div>
+        <a href="https://t.me/vtrendeappbot" target="_blank" rel="noopener" class="btn btn-ghost plan-cta">Выбрать</a>
+      </div>
+      <div class="plan" data-a="up" style="transition-delay:.2s">
+        <div class="plan-name">Разовые монеты</div>
+        <div class="plan-price">от 99 ₽</div>
+        <div class="plan-period">без подписки, под точечные задачи</div>
+        <div class="plan-hr"></div>
+        <div class="plan-feats"><div class="pf">Монеты не сгорают</div><div class="pf">100 / 300 / 1000 монет</div><div class="pf">Чем больше пакет, тем дешевле монета</div></div>
+        <a href="https://t.me/vtrendeappbot" target="_blank" rel="noopener" class="btn btn-ghost plan-cta">Выбрать</a>
+      </div>
+    </div>
+    <p class="pricing-note">Отмена в любой момент · Оплата картой РФ, по СБП или криптой</p>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section section-top" id="faq">
+  <div class="container">
+    <div class="chip center fit" data-a="up"><span class="dot"></span>Вопросы</div>
+    <h2 class="center" data-a="up" style="margin-bottom:44px;transition-delay:.08s">Вопросы и ответы</h2>
+    <div class="faq-list">
+      <div class="faq-item"><div class="faq-q">Нужен ли ВПН?<span class="faq-icon">+</span></div><div class="faq-a">Нет. Сервис работает на нашей стороне — ВПН не нужен ни для использования, ни для публикации в соцсети.</div></div>
+      <div class="faq-item"><div class="faq-q">Чем платить?<span class="faq-icon">+</span></div><div class="faq-a">Картой российского банка, по СБП или криптовалютой. Оплата в рублях.</div></div>
+      <div class="faq-item"><div class="faq-q">Это сложно? Я никогда не пользовался нейросетями.<span class="faq-icon">+</span></div><div class="faq-a">Нет, это просто. Приложение ведёт вас по шагам и делает основную работу за вас — справится любой.</div></div>
+      <div class="faq-item"><div class="faq-q">Чем вы отличаетесь от обычной нейросети?<span class="faq-icon">+</span></div><div class="faq-a">Мы собрали десятки нейросетей в одном месте: видео, фото, карусели, тексты — всё в одном приложении, а не по одному сервису на каждую задачу.</div></div>
+      <div class="faq-item"><div class="faq-q">Когда появится Трендвотчер и автопубликация?<span class="faq-icon">+</span></div><div class="faq-a">Уже в разработке. Напишите слово ТРЕНД в службу поддержки — сообщим первыми и дадим бонусные монеты.</div></div>
+      <div class="faq-item"><div class="faq-q">Безопасно подключать соцсети?<span class="faq-icon">+</span></div><div class="faq-a">Да. Пароли мы не храним. Используем официальные API соцсетей с ограниченными правами доступа.</div></div>
+      <div class="faq-item"><div class="faq-q">Можно отменить подписку?<span class="faq-icon">+</span></div><div class="faq-a">Да, в любой момент — без штрафов и объяснений. Доступ остаётся до конца оплаченного периода.</div></div>
+      <div class="faq-item"><div class="faq-q">Можно использовать сгенерированный контент коммерчески?<span class="faq-icon">+</span></div><div class="faq-a">Да. Всё, что вы создаёте в ВТренде — видео, фото, карусели, тексты, — ваше. Можно свободно использовать в своих соцсетях, рекламе и проектах клиентов.</div></div>
+    </div>
+    <div class="support-cta" data-a="pop">
+      <img src="assets/support-icon.png" alt="" class="support-cta-ico" />
+      <div class="support-cta-txt">
+        <h3>Остались вопросы?</h3>
+        <p>Служба поддержки отвечает в Telegram быстро и лично.</p>
+      </div>
+      <a href="https://t.me/vtrende_support" target="_blank" rel="noopener" class="btn btn-lime btn-lg support-cta-btn">Написать в поддержку →</a>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta section-top">
+  <div class="container final-grid">
+    <div class="final-copy">
+      <div class="chip fit" data-a="up"><span class="dot"></span>Попробуйте сами</div>
+      <h2 data-a="up" style="transition-delay:.06s">Становитесь популярными — уже сегодня</h2>
+      <p data-a="up" style="transition-delay:.12s">Подключитесь, и ваши соцсети начнут расти. Все нейросети в одном месте — просто, без ВПН и лишних сервисов.</p>
+      <div class="final-btns" data-a="up" style="transition-delay:.18s">
+        <a href="https://t.me/vtrendeappbot" target="_blank" rel="noopener" class="btn btn-lime btn-lg">Начать бесплатно</a>
+        <a href="#features" class="btn btn-ghost btn-lg">Смотреть возможности</a>
+      </div>
+    </div>
+    <div class="final-video-wrap" data-a="pop" style="transition-delay:.1s">
+      <video class="final-video" src="assets/final-video.mp4" autoplay muted loop playsinline></video>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="foot-inner">
+      <div class="foot-brand">
+        <a href="/"><img src="logo_0.svg" alt="#ВТренде" class="logo-img" /></a>
+        <p>Все нейросети для соцсетей, работы и дома — в одном приложении. Без ВПН.</p>
+        <div class="foot-social">
+          <a href="https://www.instagram.com/vtrende.app/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1.05" fill="currentColor" stroke="none"/></svg></a>
+          <a href="https://www.youtube.com/@vtrende-app" target="_blank" rel="noopener" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2.5" y="5.5" width="19" height="13" rx="4"/><path d="M10.3 9.1v5.8l5.2-2.9-5.2-2.9z" fill="currentColor" stroke="none"/></svg></a>
+          <a href="https://t.me/vtrende_app" target="_blank" rel="noopener" aria-label="Telegram"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.2 3.6 2.9 10.8c-.9.35-.9 1.6.03 1.9l4.6 1.5 1.7 5.4c.2.63 1 .8 1.45.3l2.4-2.6 4.5 3.3c.7.5 1.7.1 1.85-.75l2.8-14.6c.16-.85-.7-1.5-1.5-1.15zM8.9 13.9l-1.1-3.6 9.2-5.6-8.1 9.2z"/></svg></a>
+        </div>
+      </div>
+      <div class="foot-col"><h4>Сервис</h4><div class="foot-links"><a href="#features">Возможности</a><a href="#trendwatcher">Что залетает</a><a href="#how">Как работает</a><a href="#pricing">Цены</a></div></div>
+      <div class="foot-col"><h4>Поддержка</h4><div class="foot-links"><a href="#faq">Вопросы и ответы</a><a href="https://t.me/vtrende_support" target="_blank" rel="noopener">Связаться с нами</a><a href="https://t.me/vtrendeappbot" target="_blank" rel="noopener">Telegram-бот</a></div></div>
+      <div class="foot-col"><h4>Документы</h4><div class="foot-links"><a href="docs/oferta.pdf" target="_blank" rel="noopener">Договор (оферта)</a><a href="docs/privacy-policy.pdf" target="_blank" rel="noopener">Политика конфиденциальности</a><a href="docs/personal-data-consent.pdf" target="_blank" rel="noopener">Согласие на обработку данных</a><a href="docs/biometric-consent.pdf" target="_blank" rel="noopener">Согласие на обработку биометрии</a><a href="docs/refund-policy.pdf" target="_blank" rel="noopener">Условия возврата</a></div></div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 ВТренде</span>
+      <div class="pay-badges">
+        <span class="pay-badge">💳 Карта РФ</span>
+        <span class="pay-badge">⚡ СБП</span>
+        <span class="pay-badge">₿ Крипта</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const els = document.querySelectorAll('[data-a]');
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('on'); io.unobserve(e.target); } });
+  }, { threshold: 0.08, rootMargin: '0px 0px -24px 0px' });
+  els.forEach(el => io.observe(el));
+
+  setTimeout(() => {
+    document.querySelectorAll('.hero [data-a]').forEach(el => { el.classList.add('on'); io.unobserve(el); });
+  }, 60);
+
+  // Trend bars fill on load
+  setTimeout(() => {
+    document.querySelectorAll('.ti-fill').forEach(b => {
+      const w = b.style.width; b.style.width = '0';
+      b.style.transition = 'width 1s cubic-bezier(.22,.68,0,1.1)';
+      requestAnimationFrame(() => { b.style.width = w; });
+    });
+  }, 500);
+
+  // Ticker: duplicate content for seamless loop
+  const track = document.getElementById('tickerTrack');
+  if (track) track.innerHTML += track.innerHTML;
+
+  // FAQ accordion
+  document.querySelectorAll('.faq-q').forEach(q => {
+    q.addEventListener('click', () => {
+      const item = q.closest('.faq-item');
+      const open = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+      if (!open) item.classList.add('open');
+    });
+  });
+
+  // Count-up stats
+  document.querySelectorAll('.ws-val[data-count]').forEach(el => {
+    const target = +el.dataset.count, suffix = el.dataset.suffix || '';
+    const io2 = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        io2.unobserve(e.target);
+        let start = null; const dur = 1100;
+        function step(ts){
+          if(!start) start = ts;
+          const p = Math.min((ts - start) / dur, 1);
+          const eased = 1 - Math.pow(1-p, 3);
+          el.textContent = Math.round(eased * target) + suffix;
+          if (p < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+      });
+    }, { threshold: 0.5 });
+    io2.observe(el);
+  });
+
+  // Sound toggle button: reflects a video's muted state as an icon
+  function setSoundBtn(btn, muted){
+    btn.setAttribute('aria-pressed', String(!muted));
+    btn.setAttribute('aria-label', muted ? 'Включить звук' : 'Выключить звук');
+    const ico = btn.querySelector('.snd-ico');
+    if (ico) ico.textContent = muted ? '🔇' : '🔊';
+  }
+
+  // Animated case-phone components
+  function initCase(root){
+    const states = [...root.querySelectorAll('.case-state')];
+    const dots = [...root.parentElement.querySelectorAll('.case-dot')];
+    const cursor = root.querySelector('.case-cursor');
+    const syncId = root.dataset.sync;
+    const syncRows = syncId ? [...document.querySelectorAll('#' + syncId + ' > *')] : [];
+    const interval = +root.dataset.interval || 2400;
+    let i = 0, timer = null, autoplay = true, inView = false;
+
+    function stopVideosExcept(idx){
+      states.forEach((s,n) => {
+        if (n === idx) return;
+        const v = s.querySelector('video');
+        if (!v) return;
+        v.pause(); v.currentTime = 0; v.muted = true;
+        const btn = s.querySelector('.cs-sound-btn');
+        if (btn) setSoundBtn(btn, true);
+      });
+    }
+
+    function place(idx){
+      i = idx;
+      states.forEach((s,n) => s.classList.toggle('active', n === idx));
+      dots.forEach((d,n) => d.classList.toggle('active', n === idx));
+      if (syncRows.length) syncRows.forEach((r,n) => r.classList.toggle('is-active', n === idx));
+      stopVideosExcept(idx);
+      const cur = states[idx];
+      const curVideo = cur.querySelector('video');
+      if (curVideo) curVideo.play().catch(()=>{});
+      const tap = cur.querySelector('[data-tap]');
+      if (cursor) {
+        if (tap) {
+          const r1 = tap.getBoundingClientRect(), r0 = root.getBoundingClientRect();
+          cursor.style.left = (r1.left - r0.left + r1.width/2) + 'px';
+          cursor.style.top = (r1.top - r0.top + r1.height/2) + 'px';
+          cursor.style.opacity = '1';
+          cursor.classList.remove('tap'); void cursor.offsetWidth; cursor.classList.add('tap');
+        } else {
+          cursor.style.opacity = '0';
+        }
+      }
+    }
+    function next(){ place((i + 1) % states.length); }
+    place(0);
+
+    function play(){ if (timer || !autoplay || !inView) return; timer = setInterval(next, interval); }
+    function pause(){ clearInterval(timer); timer = null; }
+    function goTo(idx){ autoplay = false; pause(); place(idx); }
+
+    const io3 = new IntersectionObserver(entries => {
+      entries.forEach(e => { inView = e.isIntersecting; inView ? play() : pause(); });
+    }, { threshold: 0.35 });
+    io3.observe(root);
+
+    dots.forEach((d,n) => d.addEventListener('click', () => goTo(n)));
+    syncRows.forEach((r,n) => r.addEventListener('click', () => goTo(n)));
+
+    root.querySelectorAll('.cs-sound-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const idx = states.findIndex(s => s.contains(btn));
+        goTo(idx);
+        const video = btn.closest('.cs-video-wrap').querySelector('video');
+        if (video.muted) {
+          video.muted = false;
+          video.currentTime = 0;
+          video.play();
+        } else {
+          video.muted = true;
+        }
+        setSoundBtn(btn, video.muted);
+      });
+    });
+  }
+  document.querySelectorAll('.case-phone[data-case]').forEach(initCase);
+
+  // Clip-motion equation tile: lazy play off-screen + independent sound toggle
+  const clipDemo = document.getElementById('clipDemo');
+  if (clipDemo) {
+    const clipVideos = [...clipDemo.querySelectorAll('video')];
+    const io4 = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        clipVideos.forEach(v => e.isIntersecting ? v.play().catch(()=>{}) : v.pause());
+      });
+    }, { threshold: 0.2 });
+    io4.observe(clipDemo);
+
+    const clipBtns = [...clipDemo.querySelectorAll('.cs-sound-btn')];
+    clipBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const video = btn.closest('.cs-video-wrap').querySelector('video');
+        if (video.muted) {
+          clipVideos.forEach(v => v.muted = true);
+          clipBtns.forEach(b => setSoundBtn(b, true));
+          video.muted = false;
+          video.currentTime = 0;
+          video.play();
+        } else {
+          video.muted = true;
+        }
+        setSoundBtn(btn, video.muted);
+      });
+    });
+  }
+
+  // Standalone video-with-sound-toggle bento tiles (e.g. cartoon card)
+  document.querySelectorAll('.bento-media.cs-video-wrap').forEach(wrap => {
+    const video = wrap.querySelector('video');
+    const btn = wrap.querySelector('.cs-sound-btn');
+    if (!video || !btn) return;
+    const ioV = new IntersectionObserver(entries => {
+      entries.forEach(e => e.isIntersecting ? video.play().catch(()=>{}) : video.pause());
+    }, { threshold: 0.2 });
+    ioV.observe(wrap);
+    btn.addEventListener('click', () => {
+      video.muted = !video.muted;
+      if (!video.muted) { video.currentTime = 0; video.play(); }
+      setSoundBtn(btn, video.muted);
+    });
+  });
+
+  // Swipeable image sliders (Посты-карусели, Любые фото и картинки)
+  document.querySelectorAll('.bento-swipe').forEach(root => {
+    const track = root.querySelector('.bento-swipe-track');
+    const slides = [...root.querySelectorAll('.bento-swipe-slide')];
+    if (slides.length < 2) return;
+    let idx = 0, timer = null, inView = false, dragging = false, startX = 0, deltaX = 0, step = 0;
+
+    function stepPx(){
+      const gap = parseFloat(getComputedStyle(track).columnGap || getComputedStyle(track).gap || 0) || 0;
+      return slides[0].getBoundingClientRect().width + gap;
+    }
+    function place(animate){
+      track.style.transition = animate === false ? 'none' : '';
+      track.style.transform = `translateX(${-idx * stepPx()}px)`;
+      if (animate === false) void track.offsetWidth;
+    }
+    function next(){ idx = (idx + 1) % slides.length; place(); }
+    function start(){ if (timer || dragging || !inView) return; timer = setInterval(next, 2400); }
+    function stop(){ clearInterval(timer); timer = null; }
+
+    const ioS = new IntersectionObserver(entries => {
+      entries.forEach(e => { inView = e.isIntersecting; inView ? start() : stop(); });
+    }, { threshold: 0.2 });
+    ioS.observe(root);
+
+    root.addEventListener('pointerdown', e => {
+      dragging = true; stop();
+      startX = e.clientX; deltaX = 0; step = stepPx();
+      track.style.transition = 'none';
+      root.setPointerCapture(e.pointerId);
+    });
+    root.addEventListener('pointermove', e => {
+      if (!dragging) return;
+      deltaX = e.clientX - startX;
+      track.style.transform = `translateX(${-idx * step + deltaX}px)`;
+    });
+    function endDrag(){
+      if (!dragging) return;
+      dragging = false;
+      track.style.transition = '';
+      if (Math.abs(deltaX) > step * 0.22) {
+        idx = deltaX < 0 ? (idx + 1) % slides.length : (idx - 1 + slides.length) % slides.length;
+      }
+      place();
+      start();
+    }
+    root.addEventListener('pointerup', endDrag);
+    root.addEventListener('pointerleave', () => { if (dragging) endDrag(); });
+
+    place(false);
+  });
+</script>
+</body>
+</html>
